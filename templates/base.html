@@ -1,3 +1,4 @@
+{% load auth_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,7 +54,7 @@
                             </a>
                         </li>
                         
-                        {% if user.is_superuser or user.userprofile.user_type == 'admin' %}
+                        {% if user|is_admin %}
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown">
                                     <i class="fas fa-cogs"></i> Admin
@@ -67,7 +68,7 @@
                             </li>
                         {% endif %}
                         
-                        {% if user.userprofile.user_type == 'student' %}
+                        {% if user|is_student %}
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'student_marks' %}">
                                     <i class="fas fa-chart-bar"></i> My Marks

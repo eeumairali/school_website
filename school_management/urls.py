@@ -19,9 +19,13 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required
 
 def home_redirect(request):
-    return redirect('dashboard')
+    if request.user.is_authenticated:
+        return redirect('dashboard')
+    else:
+        return redirect('login')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
