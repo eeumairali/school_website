@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Marks - School Management System{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4"><i class="fas fa-plus"></i> Add Student Marks</h1>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h5><i class="fas fa-chart-bar"></i> Marks Information</h5>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="student_id" class="form-label">Student <span class="text-danger">*</span></label>
+                                <select class="form-select" id="student_id" name="student_id" required>
+                                    <option value="">Select Student</option>
+                                    {% for student in students %}
+                                        <option value="{{ student.id }}">{{ student.student_id }} - {{ student.full_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="course_id" class="form-label">Course <span class="text-danger">*</span></label>
+                                <select class="form-select" id="course_id" name="course_id" required>
+                                    <option value="">Select Course</option>
+                                    {% for course in courses %}
+                                        <option value="{{ course.id }}">{{ course.course_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="subject" class="form-label">Subject <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="subject" name="subject" required>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="marks" class="form-label">Marks Obtained <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" id="marks" name="marks" min="0" step="0.01" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="total_marks" class="form-label">Total Marks <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" id="total_marks" name="total_marks" min="0" step="0.01" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'marks_list' %}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Back to Marks List
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Add Marks
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-info-circle"></i> Grading Information</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Grade Scale:</h6>
+                        <ul>
+                            <li><strong>A+:</strong> 90-100%</li>
+                            <li><strong>A:</strong> 80-89%</li>
+                            <li><strong>B:</strong> 70-79%</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Continued:</h6>
+                        <ul>
+                            <li><strong>C:</strong> 60-69%</li>
+                            <li><strong>D:</strong> 50-59%</li>
+                            <li><strong>F:</strong> Below 50%</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
